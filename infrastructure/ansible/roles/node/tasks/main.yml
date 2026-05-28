@@ -1,6 +1,35 @@
+- name: Install requirements
+  ansible.builtin.apt:
+    pkg:
+      - ca-certificates
+      - curl
+    update_cache: true
+  become: true
+
+- name: Ensure apt keyrings directory exists for NodeSource
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: '0755'
+  become: true
+
+- name: Add NodeSource apt GPG key
+  ansible.builtin.get_url:
+    url: https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key
+    dest: /etc/apt/keyrings/nodesource.asc
+    mode: '0644'
+  become: true
+
+- name: Add NodeSource apt repository
+  ansible.builtin.apt_repository:
+    repo: "deb [signed-by=/etc/apt/keyrings/nodesource.asc] https://deb.nodesource.com/node_24.x nodistro main"
+    filename: nodesource
+    state: present
+    update_cache: true
+  become: true
+
 - name: Install Node.js
   ansible.builtin.apt:
-    name:
-      - nodejs
-      - npm
+    name: nodejs
+    state: present
   become: true
