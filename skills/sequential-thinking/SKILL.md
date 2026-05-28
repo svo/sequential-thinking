@@ -1,7 +1,6 @@
 ---
 name: sequential-thinking
 description: Break down complex problems into explicit sequential reasoning steps with revision, branching, hypothesis generation, and verification
-user_invocable: true
 ---
 
 # Sequential Thinking
@@ -45,6 +44,7 @@ For each thought step, output using this format:
 ```
 
 Each thought can include:
+
 - Regular analytical steps
 - Revisions of previous thoughts
 - Questions about previous decisions

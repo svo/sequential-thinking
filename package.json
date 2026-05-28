@@ -13,6 +13,13 @@
   ],
   "author": "ceartshamus",
   "license": "MIT",
+  "type": "commonjs",
+  "scripts": {
+    "lint": "npm run lint:md && npm run lint:spec && npm run lint:pkg",
+    "lint:md": "markdownlint-cli2",
+    "lint:spec": "skills-ref validate skills/sequential-thinking",
+    "lint:pkg": "publint"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ceartshamus/sequential-thinking.git"
@@ -28,5 +35,10 @@
   ],
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "markdownlint-cli2": "^0.22.1",
+    "publint": "^0.3.21",
+    "skills-ref": "^0.1.5"
   }
 }
