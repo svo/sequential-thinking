@@ -124,7 +124,14 @@ Only when you are genuinely satisfied with your reasoning:
 | Vague thoughts like "this seems right" | Be specific: what exactly and why |
 | Adjusting estimate down to rush to finish | Add thoughts if the problem warrants them |
 
-## Example
+## Examples
+
+The same sequence is shown below on two different problems. The structure —
+estimate, step, revise, hypothesize, verify, conclude — is identical; only the
+domain-specific content changes. The second example transposes it onto a software
+development task.
+
+### Example 1: a general problem
 
 Given: "Our team keeps missing delivery dates. What should we change?"
 
@@ -170,6 +177,50 @@ Introduce a lightweight "definition of ready" gate before starting any item, and
 set an explicit limit on work in progress. This targets rework as the primary
 cause and work-in-progress as the secondary one, without needing more people or a
 longer cycle.
+```
+
+### Example 2: the same sequence, transposed onto software development
+
+Given: "Users intermittently get logged out. Why?"
+
+```
+**[Thought 1/5]**
+Intermittent suggests state or timing, not a hard logic error. Candidate causes:
+tokens expiring early, requests reaching an instance that never saw the login, or
+a race during token refresh. I'll look for evidence for each before committing.
+
+**[Thought 2/5]**
+Logs show logouts cluster right after deploys and during traffic spikes — both
+moments when more than one app instance is serving requests. That points away from
+token expiry (which would be uniform over time) and toward instances not sharing
+session state.
+
+**[Thought 3/5]**
+Sessions are held in per-instance memory, and routing is not pinned to an instance.
+A request can land on an instance that never recorded the login — which would look
+exactly this intermittent.
+
+**[Revision: Thought 4 revises Thought 1]**
+I listed a token-refresh race as a likely cause, but the clustering around
+multi-instance conditions in Thoughts 2–3 makes unshared session state the far
+stronger explanation. I'm setting the refresh-race hypothesis aside unless shared
+state is ruled out.
+
+**[Hypothesis]**
+Logouts occur because sessions live in per-instance memory while requests are not
+pinned to the instance holding the session. Moving sessions to a shared store (or
+enabling sticky routing) will resolve it.
+
+**[Verification]**
+- Explains intermittency (depends on which instance a request hits) ✓
+- Explains clustering after deploys and spikes (more instances in play) ✓
+- Fits the evidence better than uniform token expiry ✓
+- No contradiction with the reasoning chain.
+
+**[Answer]**
+The cause is per-instance in-memory sessions with no shared store and no sticky
+routing. Move session state to a shared store so any instance can serve any
+request; sticky routing is a weaker stopgap.
 ```
 
 ## After Concluding
