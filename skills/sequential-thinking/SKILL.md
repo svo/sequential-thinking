@@ -21,8 +21,12 @@ A structured, reflective problem-solving process that breaks complex problems in
 - Problems that require a multi-step solution
 - Tasks that need to maintain context over multiple steps
 - Situations where irrelevant information needs to be filtered out
-- Architecture decisions with trade-offs
-- Debugging where multiple hypotheses exist
+- Decisions that involve weighing competing trade-offs
+- Diagnosing a problem where several explanations are possible
+
+This applies to any domain. In software work specifically, it covers design and
+architecture decisions, debugging, choosing a refactoring approach, and test
+strategy — but the same process fits research, writing, planning, and operations.
 
 ## The Process
 
@@ -121,61 +125,61 @@ Only when you are genuinely satisfied with your reasoning:
 
 ## Example
 
-Given: "Should we use a microservices or monolith architecture for this project?"
+Given: "Our team keeps missing delivery dates. What should we change?"
 
 ```
 **[Thought 1/6]**
-First, I need to understand the constraints: team size, deployment requirements,
-and expected scale. A 3-person team with a single deployment target suggests
-monolith. Large team with independent scaling needs suggests microservices.
+First, I need to find the actual bottleneck rather than guess. Candidate causes:
+too much work started at once, unclear requirements, or slow review and approval.
+I should look for evidence of each before proposing a change.
 
 **[Thought 2/6]**
-The team is 4 developers. Microservices would mean each person owns 2-3 services
-including ops. That is high overhead for a small team.
+Looking at recent cycles: most items sit "in progress" for days with little
+movement, and several are started before earlier ones finish. That points to too
+much work in progress, not slow individual effort.
 
 **[Thought 3/6]**
-Looking at the scaling requirements: the read path needs 10x more capacity than
-the write path. This is a point in favor of microservices — we could scale the
-read service independently.
+But requirements also change mid-cycle on roughly half the items. That could be
+the real driver — rework, not work-in-progress.
 
 **[Revision: Thought 4 revises Thought 2]**
-I said microservices would be high overhead, but a modular monolith with
-extractable boundaries gives us the option to split later without the upfront
-ops cost. This addresses the concern from Thought 2 while keeping the door
-open for Thought 3.
+I attributed the delay to work-in-progress, but Thought 3 shows heavy mid-cycle
+rework. The two interact: with many items in flight, a single change ripples
+across all of them. The primary lever is reducing rework by settling requirements
+before work starts; limiting work-in-progress is secondary.
 
 **[Thought 5/6]**
-Deployment constraint: the client requires single-artifact deployment to
-air-gapped environments. Microservices with container orchestration adds
-significant complexity here.
+Constraint: the team cannot add people and cannot extend the cycle length. So the
+change has to be a process change, not more capacity.
 
 **[Hypothesis]**
-A modular monolith with well-defined module boundaries is the right choice.
-It fits the team size, meets the deployment constraint, and allows future
-extraction of the read path if scaling demands it.
+Require a short, agreed "ready" check before any item is started, and cap the
+number of items in progress. This attacks rework first and work-in-progress
+second, within the no-extra-capacity constraint.
 
 **[Verification]**
-- Team size (4 devs): Monolith is manageable ✓
-- Scaling (10x read vs write): Module boundaries allow future extraction ✓
-- Deployment (air-gapped, single artifact): Monolith is simplest ✓
+- Addresses rework (the main driver from Thought 4): a readiness check reduces
+  mid-cycle changes ✓
+- Addresses work-in-progress (Thought 2): an explicit cap limits in-flight items ✓
+- Respects the constraint (no new people, fixed cycle): both are process changes ✓
 - No contradictions with the reasoning chain.
 
 **[Answer]**
-Use a modular monolith with explicit module boundaries between read and write
-paths. This fits the team size and deployment constraints now, while preserving
-the option to extract the read path into a separate service if scaling requires
-it later.
+Introduce a lightweight "definition of ready" gate before starting any item, and
+set an explicit limit on work in progress. This targets rework as the primary
+cause and work-in-progress as the secondary one, without needing more people or a
+longer cycle.
 ```
 
 ## After Concluding
 
 Sequential thinking produces a verified conclusion — it does not carry out the work.
-Once you reach an `[Answer]`, hand off to whatever is appropriate for acting on it:
+Once you reach an `[Answer]`, move to acting on it:
 
-- For a debugging conclusion, move to fixing and confirming the fix.
-- For an architectural conclusion, move to implementing the chosen design.
-- For a testing-strategy conclusion, move to writing the tests.
-- In all cases, verify the conclusion holds in practice before considering it done.
+- Translate the conclusion into concrete next actions.
+- Where the conclusion chose an approach or identified a cause, carry it out.
+- Verify the conclusion holds in practice before considering it done.
 
-If your environment provides dedicated skills for debugging, implementation, testing,
-or verification, use them for these follow-on steps.
+In software work this typically means implementing the chosen design, fixing and
+confirming a diagnosed bug, or writing the tests for a chosen strategy. If your
+environment provides dedicated skills for those follow-on steps, use them.
