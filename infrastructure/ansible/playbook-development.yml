@@ -58,6 +58,7 @@
         git_safe_directory: /vagrant
     - python
     - node
+    - golang
     - pipx
     - semgrep
     - ansible

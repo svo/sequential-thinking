@@ -1,0 +1,42 @@
+- name: Install requirements
+  ansible.builtin.apt:
+    pkg:
+      - curl
+      - ca-certificates
+  become: true
+
+- name: Determine architecture
+  ansible.builtin.set_fact:
+    architecture: "{{ 'amd64' if ansible_facts['architecture'] == 'x86_64' else 'arm64' }}"
+
+- name: Set download URL based on architecture
+  ansible.builtin.set_fact:
+    url: "https://go.dev/dl/go1.26.3.linux-{{ architecture }}.tar.gz"
+
+- name: Install golang
+  ansible.builtin.unarchive:
+    src: "{{ url }}"
+    dest: /usr/local
+    creates: /usr/local/go
+    remote_src: true
+  become: true
+
+- name: Create GOPATH directory
+  ansible.builtin.file:
+    path: "{{ ansible_facts['env']['HOME'] }}/go"
+    state: directory
+    mode: '0755'
+
+- name: Update ~/.profile with golang environment
+  ansible.builtin.blockinfile:
+    create: true
+    path: ~/.profile
+    marker: "# {mark} ANSIBLE MANAGED BLOCK - golang"
+    mode: '0755'
+    block: |
+      export GOPATH=$HOME/go
+      export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+
+- name: Verify installation
+  ansible.builtin.command: /usr/local/go/bin/go version
+  changed_when: false
