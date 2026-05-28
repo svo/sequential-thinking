@@ -45,6 +45,36 @@ npx skillpm sync
         └── SKILL.md
 ```
 
+## Development
+
+### Linting
+
+```bash
+npm install
+npm run lint
+```
+
+`npm run lint` runs four checks:
+
+- `lint:md` — [markdownlint-cli2](https://github.com/DavidAnson/markdownlint-cli2) on the Markdown.
+- `lint:spec` — [`skills-ref`](https://www.npmjs.com/package/skills-ref) frontmatter and
+  naming validation against the Agent Skills spec (the same check `skillpm publish` enforces).
+- `lint:skill` — [`skill-validator`](https://github.com/agent-ecosystem/skill-validator) static
+  analysis of the skill (structure, frontmatter, token budget, content density,
+  link integrity, and cross-language contamination), run in `--strict` mode.
+- `lint:pkg` — [publint](https://github.com/bluwy/publint) for npm publish hygiene.
+
+`skill-validator` is a Go binary, not an npm dependency, so install it once:
+
+```bash
+brew tap agent-ecosystem/tap && brew install skill-validator
+# or:
+go install github.com/agent-ecosystem/skill-validator/cmd/skill-validator@latest
+```
+
+CI runs the same checks on every push and pull request (see
+[`.github/workflows/lint.yml`](.github/workflows/lint.yml)).
+
 ## License
 
 MIT — see [LICENSE](LICENSE).

@@ -15,9 +15,10 @@
   "license": "MIT",
   "type": "commonjs",
   "scripts": {
-    "lint": "npm run lint:md && npm run lint:spec && npm run lint:pkg",
+    "lint": "npm run lint:md && npm run lint:spec && npm run lint:skill && npm run lint:pkg",
     "lint:md": "markdownlint-cli2",
     "lint:spec": "skills-ref validate skills/sequential-thinking",
+    "lint:skill": "skill-validator check --strict skills/sequential-thinking",
     "lint:pkg": "publint"
   },
   "repository": {
