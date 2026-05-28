@@ -1,0 +1,32 @@
+{
+  "name": "@ceartshamus/sequential-thinking",
+  "version": "1.0.0",
+  "description": "Claude Agent Skill: break down complex problems into explicit sequential reasoning steps with revision, branching, hypothesis generation, and verification.",
+  "keywords": [
+    "agent-skill",
+    "claude",
+    "claude-code",
+    "skill",
+    "sequential-thinking",
+    "reasoning",
+    "skillpm"
+  ],
+  "author": "ceartshamus",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ceartshamus/sequential-thinking.git"
+  },
+  "homepage": "https://github.com/ceartshamus/sequential-thinking#readme",
+  "bugs": {
+    "url": "https://github.com/ceartshamus/sequential-thinking/issues"
+  },
+  "files": [
+    "skills",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
