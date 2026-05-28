@@ -167,9 +167,15 @@ the option to extract the read path into a separate service if scaling requires
 it later.
 ```
 
-## Integration with Other Skills
+## After Concluding
 
-- After reaching an answer about a bug, use `systematic-debugging` for the fix
-- After reaching an architectural answer, use `hexagonal-architecture-scaffolder` to implement
-- After reaching a testing strategy, use `test-driven-development` to execute
-- Use `verification-before-completion` to confirm your answer holds in practice
+Sequential thinking produces a verified conclusion — it does not carry out the work.
+Once you reach an `[Answer]`, hand off to whatever is appropriate for acting on it:
+
+- For a debugging conclusion, move to fixing and confirming the fix.
+- For an architectural conclusion, move to implementing the chosen design.
+- For a testing-strategy conclusion, move to writing the tests.
+- In all cases, verify the conclusion holds in practice before considering it done.
+
+If your environment provides dedicated skills for debugging, implementation, testing,
+or verification, use them for these follow-on steps.
