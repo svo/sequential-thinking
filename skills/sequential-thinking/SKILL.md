@@ -24,9 +24,10 @@ A structured, reflective problem-solving process that breaks complex problems in
 - Decisions that involve weighing competing trade-offs
 - Diagnosing a problem where several explanations are possible
 
-This applies to any domain. In software work specifically, it covers design and
-architecture decisions, debugging, choosing a refactoring approach, and test
-strategy — but the same process fits research, writing, planning, and operations.
+The process is domain-independent. It is a generic reasoning sequence that you
+transpose onto whatever problem you are facing — research, writing, planning,
+operations, design, diagnosis, or a software task — by treating each thought as a
+step toward the answer in that domain's own terms.
 
 ## The Process
 
@@ -176,10 +177,10 @@ longer cycle.
 Sequential thinking produces a verified conclusion — it does not carry out the work.
 Once you reach an `[Answer]`, move to acting on it:
 
-- Translate the conclusion into concrete next actions.
+- Translate the conclusion into concrete next actions in the terms of your domain.
 - Where the conclusion chose an approach or identified a cause, carry it out.
 - Verify the conclusion holds in practice before considering it done.
 
-In software work this typically means implementing the chosen design, fixing and
-confirming a diagnosed bug, or writing the tests for a chosen strategy. If your
-environment provides dedicated skills for those follow-on steps, use them.
+What "carrying it out" means depends on the domain — enacting a plan, producing the
+writing, applying the fix, building the chosen design. If your environment provides
+dedicated skills for those follow-on steps, use them.
