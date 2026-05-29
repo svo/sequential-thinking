@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+token="${NODE_AUTH_TOKEN:?NODE_AUTH_TOKEN is required}"
+
+echo "//registry.npmjs.org/:_authToken=${token}" > "${HOME}/.npmrc"
+
+npm publish

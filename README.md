@@ -75,6 +75,49 @@ go install github.com/agent-ecosystem/skill-validator/cmd/skill-validator@latest
 CI runs the same checks on every push and pull request (see
 [`.github/workflows/lint.yml`](.github/workflows/lint.yml)).
 
+### Infrastructure images
+
+The `infrastructure/` Packer + Ansible setup builds two multi-arch Docker images,
+published to Docker Hub under `svanosselaer/`:
+
+- `sequential-thinking-builder` — the containerised toolchain (Packer, Ansible,
+  Docker, Go, Node) used by CI to build images and publish the package. Its
+  default entrypoint (`bin/test`) runs `ansible-lint` and `shellcheck`.
+- `sequential-thinking-development` — the Vagrant development box image.
+
+Each image has a workflow that rebuilds it (per-arch matrix plus a `latest`
+manifest) on changes to the infrastructure, on a weekly schedule, or manually:
+
+- [`.github/workflows/builder.yml`](.github/workflows/builder.yml)
+- [`.github/workflows/development.yml`](.github/workflows/development.yml)
+
+Both build inside the builder image via `./build.sh <image> <arch>` →
+`bin/create-image` → `packer build`, then `./push.sh` / `./create-latest.sh`.
+
+### Publishing to npm
+
+[`.github/workflows/service.yml`](.github/workflows/service.yml) packs and
+publishes the package to npm. It runs `./publish.sh`, which executes
+`bin/publish` (`npm publish`) inside the builder image. It triggers on a
+version tag push (`v*`) or manually:
+
+```bash
+npm version patch   # or minor / major — commits and creates the vX.Y.Z tag
+git push --follow-tags
+```
+
+### Required CI secrets
+
+| Secret | Used by | Purpose |
+|---|---|---|
+| `NPM_TOKEN` | `service.yml` | npm automation token for publishing under `ceartshamus`. |
+| `DOCKER_USERNAME` | all three | Docker Hub user for pushing/pulling the images. |
+| `DOCKER_TOKEN` | all three | Docker Hub access token. |
+
+Create the `NPM_TOKEN` as an **Automation** token at
+<https://www.npmjs.com/settings/ceartshamus/tokens>, then add all three under the
+repository's **Settings → Secrets and variables → Actions**.
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
