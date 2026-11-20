@@ -20,7 +20,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       docker.volumes = [
         '/var/run/docker.sock:/var/run/docker.sock'
       ]
-      docker.ports = ["8001:8000"]
+      docker.ports = ["8004:8000"]
     end
 
     if Vagrant.has_plugin?("vagrant-cachier")
@@ -29,6 +29,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     development.vm.hostname = 'sequential-thinking-vagrant'
+    development.vm.network :forwarded_port, id: 'ssh', guest: 22, host: 2316, host_ip: '127.0.0.1'
 
     development.vm.provision :ansible do |ansible|
       ansible.playbook = PLAYBOOK
