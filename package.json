@@ -1,7 +1,7 @@
 {
   "name": "@ceartshamus/sequential-thinking",
   "version": "1.0.0",
-  "description": "Claude Agent Skill: break down complex problems into explicit sequential reasoning steps with revision, branching, hypothesis generation, and verification.",
+  "description": "Claude Agent Skill: work through complex problems in sequential steps with revision, branching, hypothesis generation, and verification, then report a verified conclusion.",
   "keywords": [
     "agent-skill",
     "claude",
