@@ -1,15 +1,20 @@
 ---
 name: sequential-thinking
-description: Break down complex problems into explicit sequential reasoning steps with revision, branching, hypothesis generation, and verification
+description: Work through complex problems in sequential steps with revision, branching, hypothesis generation, and verification, then report a verified conclusion and the evidence behind it. Use for multi-step analysis, planning that may need course correction, and diagnosis where several explanations are possible.
 ---
 
 # Sequential Thinking
 
 ## Overview
 
-A structured, reflective problem-solving process that breaks complex problems into numbered thought steps. Each thought can build on, question, or revise previous insights as understanding deepens.
+A structured, reflective problem-solving process that breaks complex problems into a
+sequence of steps. Each step can build on, question, or revise earlier ones as
+understanding deepens.
 
 **Core principle:** Think step by step. Revise freely. Verify before concluding.
+
+The steps are your working, and they stay in your own reasoning. The response
+reports the result: the conclusion you verified and what supports it.
 
 ## When to Use
 
@@ -25,208 +30,186 @@ A structured, reflective problem-solving process that breaks complex problems in
 
 The process is domain-independent. It is a generic reasoning sequence that you
 transpose onto whatever problem you are facing — research, writing, planning,
-operations, design, diagnosis, or a software task — by treating each thought as a
-step toward the answer in that domain's own terms.
+operations, design, diagnosis, or a software task — by treating each step as
+progress toward the answer in that domain's own terms.
 
 ## The Process
 
+Work through Steps 1 to 5 in your own reasoning before you respond. Step 6 is the
+response.
+
 ### Step 1: Estimate Scope
 
-Before your first thought, estimate how many thought steps you will need. This estimate can be adjusted up or down as you progress.
+Estimate how many steps the problem needs. Adjust the estimate up or down as you
+progress.
 
-### Step 2: Execute Thought Steps
+### Step 2: Work in Steps
 
-For each thought step, output using this format:
+Take the problem one step at a time. A step can be:
 
-```
-**[Thought N/Total]**
-[Your current thinking step]
-```
-
-Each thought can include:
-
-- Regular analytical steps
-- Revisions of previous thoughts
-- Questions about previous decisions
-- Realizations about needing more analysis
-- Changes in approach
+- A regular analytical step
+- A revision of an earlier step
+- A question about an earlier decision
+- A realization that more analysis is needed
+- A change in approach
 - Hypothesis generation
 - Hypothesis verification
 
+At each step, set aside information that does not bear on the problem.
+
 ### Step 3: Revise When Needed
 
-When a previous thought was wrong or incomplete, use:
-
-```
-**[Revision: Thought N revises Thought M]**
-[Why the previous thought was wrong and the corrected thinking]
-```
-
-Do not pretend earlier thoughts were correct. Explicitly mark corrections.
+When an earlier step turns out to be wrong or incomplete, correct it and rework
+whatever depended on it. Do not keep building on a step you no longer believe.
 
 ### Step 4: Branch When Needed
 
-When exploring an alternative approach from an earlier point, use:
-
-```
-**[Branch from Thought N: branch-name]**
-[Alternative reasoning path]
-```
-
-You can have multiple branches. Label them clearly so you can compare outcomes.
+When more than one approach is plausible, follow each one far enough to compare
+their outcomes, then continue with the one that holds up best.
 
 ### Step 5: Generate and Verify Hypotheses
 
-When you have enough reasoning to form a hypothesis:
+When you have enough to form a hypothesis, test it against everything you have
+established:
+
+- Does it explain the evidence?
+- Does it respect the constraints?
+- Does anything contradict it?
+
+If verification fails, return to working in steps. Do not force a broken
+hypothesis. Repeat until a hypothesis holds.
+
+### Step 6: Report the Result
+
+Respond when a hypothesis has passed verification. Write for a reader who has to
+trust the conclusion and act on it:
 
 ```
-**[Hypothesis]**
-[Your proposed solution or conclusion]
+**Answer**
+[The verified conclusion, stated directly]
 
-**[Verification]**
-[Check the hypothesis against your chain of thought steps]
-[Does it hold up? Are there contradictions?]
+**Basis**
+[The evidence and facts the conclusion rests on]
+
+**Alternatives set aside**
+[Other explanations or options, each with what ruled it out]
+
+**Checks**
+[What the conclusion was tested against, and the outcome]
+
+**Open questions**
+[What is still uncertain, and what would settle it]
 ```
 
-If verification fails, return to thought steps. Do not force a broken hypothesis.
+Report the result, not the route. The reader needs the conclusion and the grounds
+for it, not an account of the steps that led there.
 
-### Step 6: Conclude
+Scale the response to the problem. A small question needs only the answer and its
+basis in a sentence or two, and a section with nothing in it is left out.
 
-Only when you are genuinely satisfied with your reasoning:
-
-```
-**[Answer]**
-[Your final, verified conclusion]
-```
+If no hypothesis can be verified with the information available, say so. Report
+what you established, what is missing, and what would settle it.
 
 ## Rules
 
-1. **Start with an initial estimate** of needed thoughts, but adjust freely
-2. **Question and revise** previous thoughts whenever warranted
-3. **Add more thoughts** if needed, even after reaching your initial estimate
-4. **Express uncertainty** when present — do not pretend to know
-5. **Mark revisions and branches** explicitly so reasoning is traceable
-6. **Ignore irrelevant information** — filter noise at each step
-7. **Generate a hypothesis** when you have enough evidence
-8. **Verify the hypothesis** against your chain of thought before concluding
-9. **Repeat** hypothesis-verification cycles until satisfied
-10. **Only conclude** when you have a genuinely verified answer
+1. **Start with an initial estimate** of the steps needed, but adjust freely
+2. **Question and revise** earlier steps whenever warranted
+3. **Add more steps** if needed, even after reaching your initial estimate
+4. **Ignore irrelevant information** — filter noise at each step
+5. **Explore alternatives** when more than one approach is plausible
+6. **Generate a hypothesis** when you have enough evidence
+7. **Verify the hypothesis** against what you established before concluding
+8. **Repeat** hypothesis-verification cycles until satisfied
+9. **Express uncertainty** when present — do not present a guess as verified
+10. **Report the result**, with what supports it, once it is verified
 
 ## Anti-Patterns
 
 | Anti-Pattern | Correction |
 |---|---|
-| Skipping to answer without steps | Always show your reasoning chain |
-| Pretending early thoughts were right | Use revision markers explicitly |
-| Never revising | If nothing needs revision, you may not be thinking critically enough |
-| Forcing a conclusion when verification fails | Return to thought steps instead |
-| Ignoring branches when multiple approaches exist | Explore alternatives explicitly |
-| Vague thoughts like "this seems right" | Be specific: what exactly and why |
-| Adjusting estimate down to rush to finish | Add thoughts if the problem warrants them |
+| Answering before working through the steps | Work the problem through first, then respond |
+| Building on a step you no longer believe | Correct it and rework what depended on it |
+| Never revising | If nothing needed revision, you may not be thinking critically enough |
+| Forcing a conclusion when verification fails | Return to working in steps instead |
+| Ignoring alternatives when several approaches exist | Follow each far enough to compare them |
+| Vague support like "this seems right" | Be specific: what evidence, and what it shows |
+| Adjusting the estimate down to rush to finish | Add steps if the problem warrants them |
+| Narrating your steps in the response | Report the conclusion and what supports it |
+| Presenting an unverified guess as the answer | Say what is uncertain and what would settle it |
 
 ## Examples
 
-The same sequence is shown below on two different problems. The structure —
-estimate, step, revise, hypothesize, verify, conclude — is identical; only the
-domain-specific content changes. The second example transposes it onto a software
-development task.
+The same process is shown below on two different problems. Each example shows the
+response only: the steps, revisions, and branches behind it stayed in the working.
+The structure of the response is identical; only the domain-specific content
+changes. The second example transposes it onto a software development task.
 
 ### Example 1: a general problem
 
 Given: "Our team keeps missing delivery dates. What should we change?"
 
 ```
-**[Thought 1/6]**
-First, I need to find the actual bottleneck rather than guess. Candidate causes:
-too much work started at once, unclear requirements, or slow review and approval.
-I should look for evidence of each before proposing a change.
+**Answer**
+Introduce a lightweight "definition of ready" check before any item is started,
+and set an explicit limit on work in progress.
 
-**[Thought 2/6]**
-Looking at recent cycles: most items sit "in progress" for days with little
-movement, and several are started before earlier ones finish. That points to too
-much work in progress, not slow individual effort.
+**Basis**
+- Requirements changed mid-cycle on roughly half of recent items, so rework is
+  the main source of delay.
+- Several items are started before earlier ones finish, so a single change
+  ripples across everything in flight.
 
-**[Thought 3/6]**
-But requirements also change mid-cycle on roughly half the items. That could be
-the real driver — rework, not work-in-progress.
+**Alternatives set aside**
+- Slow individual effort: items sit "in progress" for days with little movement,
+  which points to queued work rather than slow work.
+- Adding people or lengthening the cycle: the team can do neither.
 
-**[Revision: Thought 4 revises Thought 2]**
-I attributed the delay to work-in-progress, but Thought 3 shows heavy mid-cycle
-rework. The two interact: with many items in flight, a single change ripples
-across all of them. The primary lever is reducing rework by settling requirements
-before work starts; limiting work-in-progress is secondary.
+**Checks**
+- Rework: a readiness check settles requirements before work starts ✓
+- Work in progress: an explicit cap limits the items a change can touch ✓
+- Constraints: both are process changes that need no extra capacity ✓
 
-**[Thought 5/6]**
-Constraint: the team cannot add people and cannot extend the cycle length. So the
-change has to be a process change, not more capacity.
-
-**[Hypothesis]**
-Require a short, agreed "ready" check before any item is started, and cap the
-number of items in progress. This attacks rework first and work-in-progress
-second, within the no-extra-capacity constraint.
-
-**[Verification]**
-- Addresses rework (the main driver from Thought 4): a readiness check reduces
-  mid-cycle changes ✓
-- Addresses work-in-progress (Thought 2): an explicit cap limits in-flight items ✓
-- Respects the constraint (no new people, fixed cycle): both are process changes ✓
-- No contradictions with the reasoning chain.
-
-**[Answer]**
-Introduce a lightweight "definition of ready" gate before starting any item, and
-set an explicit limit on work in progress. This targets rework as the primary
-cause and work-in-progress as the secondary one, without needing more people or a
-longer cycle.
+**Open questions**
+- Why requirements change mid-cycle is not yet known. If the changes come from
+  outside the team, the readiness check needs the requesters' agreement to work.
 ```
 
-### Example 2: the same sequence, transposed onto software development
+### Example 2: the same process, transposed onto software development
 
 Given: "Users intermittently get logged out. Why?"
 
 ```
-**[Thought 1/5]**
-Intermittent suggests state or timing, not a hard logic error. Candidate causes:
-tokens expiring early, requests reaching an instance that never saw the login, or
-a race during token refresh. I'll look for evidence for each before committing.
+**Answer**
+Sessions are held in per-instance memory, and requests are not pinned to the
+instance that holds the session. Move session state to a shared store so any
+instance can serve any request. Sticky routing is a weaker stopgap.
 
-**[Thought 2/5]**
-Logs show logouts cluster right after deploys and during traffic spikes — both
-moments when more than one app instance is serving requests. That points away from
-token expiry (which would be uniform over time) and toward instances not sharing
-session state.
+**Basis**
+- Logouts cluster right after deploys and during traffic spikes, the moments
+  when more than one instance is serving requests.
+- Sessions live in per-instance memory and routing is not pinned, so a request
+  can reach an instance that never recorded the login.
 
-**[Thought 3/5]**
-Sessions are held in per-instance memory, and routing is not pinned to an instance.
-A request can land on an instance that never recorded the login — which would look
-exactly this intermittent.
+**Alternatives set aside**
+- Tokens expiring early: expiry would be spread evenly over time, not clustered
+  around deploys and spikes.
+- A race during token refresh: possible, but it does not explain the
+  clustering. Revisit it only if logouts continue once sessions are shared.
 
-**[Revision: Thought 4 revises Thought 1]**
-I listed a token-refresh race as a likely cause, but the clustering around
-multi-instance conditions in Thoughts 2–3 makes unshared session state the far
-stronger explanation. I'm setting the refresh-race hypothesis aside unless shared
-state is ruled out.
+**Checks**
+- Intermittency: the outcome depends on which instance a request reaches ✓
+- Clustering: deploys and spikes put more instances in play ✓
+- No evidence contradicts it ✓
 
-**[Hypothesis]**
-Logouts occur because sessions live in per-instance memory while requests are not
-pinned to the instance holding the session. Moving sessions to a shared store (or
-enabling sticky routing) will resolve it.
-
-**[Verification]**
-- Explains intermittency (depends on which instance a request hits) ✓
-- Explains clustering after deploys and spikes (more instances in play) ✓
-- Fits the evidence better than uniform token expiry ✓
-- No contradiction with the reasoning chain.
-
-**[Answer]**
-The cause is per-instance in-memory sessions with no shared store and no sticky
-routing. Move session state to a shared store so any instance can serve any
-request; sticky routing is a weaker stopgap.
+**Open questions**
+- Not yet confirmed in production. Logging the serving instance on each logout
+  would confirm it before the migration.
 ```
 
 ## After Concluding
 
 Sequential thinking produces a verified conclusion — it does not carry out the work.
-Once you reach an `[Answer]`, move to acting on it:
+Once you have a verified answer, move to acting on it:
 
 - Translate the conclusion into concrete next actions in the terms of your domain.
 - Where the conclusion chose an approach or identified a cause, carry it out.
