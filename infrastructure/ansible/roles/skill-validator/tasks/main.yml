@@ -1,0 +1,48 @@
+- name: Map host architecture to release naming
+  ansible.builtin.set_fact:
+    skill_validator_arch: "{{ skill_validator_arch_map[ansible_facts['architecture']] }}"
+  vars:
+    skill_validator_arch_map:
+      x86_64: amd64
+      aarch64: arm64
+
+- name: Set release download locations
+  ansible.builtin.set_fact:
+    skill_validator_release_url: "https://github.com/agent-ecosystem/skill-validator/releases/download/v{{ skill_validator_version }}"
+    skill_validator_archive: "skill-validator_{{ skill_validator_version }}_linux_{{ skill_validator_arch }}.tar.gz"
+
+- name: Create temporary download directory
+  ansible.builtin.tempfile:
+    state: directory
+    suffix: skill-validator
+  register: skill_validator_tmp
+
+- name: Download and verify skill-validator archive
+  ansible.builtin.get_url:
+    url: "{{ skill_validator_release_url }}/{{ skill_validator_archive }}"
+    dest: "{{ skill_validator_tmp.path }}/{{ skill_validator_archive }}"
+    checksum: "sha256:{{ skill_validator_release_url }}/skill-validator_{{ skill_validator_version }}_checksums.txt"
+    mode: "0644"
+  retries: 3
+  delay: 5
+
+- name: Extract skill-validator binary
+  ansible.builtin.unarchive:
+    src: "{{ skill_validator_tmp.path }}/{{ skill_validator_archive }}"
+    dest: /usr/local/bin
+    remote_src: true
+    include:
+      - skill-validator
+    mode: "0755"
+    owner: root
+    group: root
+  become: true
+
+- name: Remove temporary download directory
+  ansible.builtin.file:
+    path: "{{ skill_validator_tmp.path }}"
+    state: absent
+
+- name: Verify installation
+  ansible.builtin.command: /usr/local/bin/skill-validator --version
+  changed_when: false

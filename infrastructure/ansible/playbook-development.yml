@@ -59,6 +59,7 @@
     - python
     - node
     - golang
+    - skill-validator
     - pipx
     - semgrep
     - ansible
