@@ -1,9 +1,9 @@
 # @ceartshamus/sequential-thinking
 
 A [Claude Agent Skill](https://agentskills.io) that guides a structured, reflective
-problem-solving process: break complex problems into numbered thought steps with
-explicit **revision**, **branching**, **hypothesis generation**, and **verification**
-before concluding.
+problem-solving process: work through complex problems in sequential steps with
+**revision**, **branching**, **hypothesis generation**, and **verification**, then
+report the verified conclusion and the evidence behind it.
 
 This package is distributed as a [skillpm](https://github.com/sbroenne/skillpm)
 skill package — an ordinary npm package that exposes `skills/*/SKILL.md`.
@@ -16,6 +16,18 @@ Use it for breaking down complex problems, planning and design with room for
 revision, debugging where multiple hypotheses exist, and architecture decisions
 with trade-offs. See [`skills/sequential-thinking/SKILL.md`](skills/sequential-thinking/SKILL.md)
 for the full process and examples.
+
+The steps are the model's working and stay in its own reasoning. The response
+reports the result: the answer, the evidence it rests on, the alternatives set
+aside, the checks it passed, and any open questions.
+
+The skill deliberately does not ask the model to write its reasoning steps into the
+response. Recent Claude models decline such prompts with a `reasoning_extraction`
+refusal — see
+[Keep reasoning in thinking blocks](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#keep-reasoning-in-thinking-blocks).
+To see a summary of the model's reasoning, read its summarized `thinking` blocks
+instead (`thinking: {"type": "adaptive", "display": "summarized"}` on the Claude
+API).
 
 ## Install
 
